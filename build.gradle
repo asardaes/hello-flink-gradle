@@ -1,0 +1,47 @@
+buildscript {
+    ext {
+        scala_version = '2.11'
+        flink_version = '1.6.0'
+        flink_dependencies = [
+                "org.apache.flink:flink-scala_$scala_version:$flink_version",
+                "org.apache.flink:flink-streaming-scala_$scala_version:$flink_version",
+        ]
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.4'
+    }
+}
+
+plugins {
+    id 'scala'
+    id 'application' // support mainClassName
+    id 'com.github.johnrengelman.shadow' version '2.0.4' // add shadowJar task
+}
+
+group 'sarda'
+version '1.0-SNAPSHOT'
+
+mainClassName = 'hello.flink.Main'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    //noinspection GroovyAssignabilityCheck
+    compileOnly(
+            "org.scala-lang:scala-library:$scala_version.+",
+            *flink_dependencies
+    )
+    //noinspection GroovyAssignabilityCheck
+    testImplementation (
+            "junit:junit:4.12",
+            "org.scalatest:scalatest_$scala_version:3.0.+",
+            "org.slf4j:slf4j-log4j12:1.7.+",
+            "log4j:log4j:1.2.+",
+            *flink_dependencies
+    )
+}
