@@ -3,8 +3,10 @@ buildscript {
         scala_version = '2.11'
         flink_version = '1.6.0'
         flink_dependencies = [
+                "org.apache.flink:flink-java:$flink_version",
                 "org.apache.flink:flink-scala_$scala_version:$flink_version",
                 "org.apache.flink:flink-streaming-scala_$scala_version:$flink_version",
+                "org.apache.flink:flink-table_$scala_version:$flink_version"
         ]
     }
     repositories {
@@ -24,7 +26,7 @@ plugins {
 group 'sarda'
 version '1.0-SNAPSHOT'
 
-mainClassName = 'hello.flink.Main'
+mainClassName = 'hello.flink.JMain'
 
 repositories {
     mavenCentral()
